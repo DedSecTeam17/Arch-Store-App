@@ -99,6 +99,11 @@ class MainActivity : AppCompatActivity() {
                     bottomNav.visibility = View.VISIBLE
                     toolbar.visibility = View.VISIBLE
                 }
+                R.id.productDetailFragment -> {
+                    bottomNav.visibility = View.GONE
+                    toolbar.visibility = View.VISIBLE
+                }
+
 
             }
 

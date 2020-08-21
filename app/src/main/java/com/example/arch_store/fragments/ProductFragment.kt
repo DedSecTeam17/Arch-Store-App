@@ -1,5 +1,6 @@
 package com.example.arch_store.fragments
 
+import android.database.DatabaseUtils
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,33 +9,35 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arch_store.R
+import com.example.arch_store.adapters.HomeListener
 import com.example.arch_store.adapters.ProductListAdapter
-import com.example.arch_store.adapters.SearchListAdapter
-import com.example.arch_store.adapters.SearchListListener
+import com.example.arch_store.adapters.ProductListListener
 import com.example.arch_store.databinding.FragmentProductBinding
-import com.example.arch_store.databinding.FragmentSearchBinding
 
-class SearchFragment : Fragment(), SearchListListener {
+class ProductFragment(
+ var   homeListener : HomeListener
+) : Fragment(
+
+), ProductListListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        var binding: FragmentSearchBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false);
-        var productList = binding.searchResult
+        var binding: FragmentProductBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_product, container, false);
+        var productList = binding.productList
 
-        var productAdapter: SearchListAdapter = SearchListAdapter(
+        var productAdapter: ProductListAdapter = ProductListAdapter(
             ctx = activity!!.applicationContext,
             products = listOf<String>("", "", "", "", "", ""),
-            searchListListener = this
+            productListListener = this
         )
         productList.apply {
             adapter = productAdapter
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = GridLayoutManager(activity, 2)
 
         }
 
@@ -45,7 +48,7 @@ class SearchFragment : Fragment(), SearchListListener {
     }
 
     override fun onItemClicked() {
-        findNavController().navigate(R.id.action_search_dest_to_productDetailFragment)
+        homeListener.onItemClicked()
     }
 
 }
