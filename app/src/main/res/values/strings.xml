@@ -14,4 +14,11 @@
     <string name="at_sign_up">SIGN UP</string>
     <string name="create_new_account">Create new account</string>
     <string name="product_name">Product name</string>
+    <string name="add_to_bag">ADD TO BAG</string>
+    <string name="edit_profile_informations">Edit Profile informations</string>
+    <string name="my_orders">My orders</string>
+    <string name="favourites_products">Favourites products</string>
+    <string name="update_profile_info">Update profile info</string>
+    <string name="products">Products</string>
+    <string name="shippment_informations">Shippment Informations</string>
 </resources>

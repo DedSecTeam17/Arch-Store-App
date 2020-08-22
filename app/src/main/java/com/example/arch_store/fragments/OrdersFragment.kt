@@ -9,30 +9,30 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arch_store.R
-import com.example.arch_store.adapters.CartListAdapter
-import com.example.arch_store.adapters.CartListListener
-import com.example.arch_store.databinding.FragmentBagBinding
+import com.example.arch_store.adapters.OrdersListAdapter
+import com.example.arch_store.adapters.OrdersListListener
+import com.example.arch_store.databinding.FragmentOrdersBinding
+import com.example.arch_store.databinding.FragmentProfileBinding
 
-class BagFragment : Fragment(), CartListListener {
 
+class OrdersFragment : Fragment(), OrdersListListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        val binding: FragmentOrdersBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_orders, container, false)
 
-        var binding: FragmentBagBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_bag, container, false)
-
-        val cartList = binding.cartItems
-        var cartAdapter = CartListAdapter(
-            products = arrayListOf<String>("", "", "", "", "", ""),
+        var ordersAdapter: OrdersListAdapter = OrdersListAdapter(
+            orders = arrayListOf("", "", "", "", ""),
             ctx = activity!!.applicationContext,
-            cartListListener = this
+            ordersListListener = this
         )
-        cartList.apply {
-            adapter = cartAdapter
+
+        binding.orders.apply {
+            adapter = ordersAdapter
             layoutManager = LinearLayoutManager(activity)
         }
 
@@ -40,8 +40,7 @@ class BagFragment : Fragment(), CartListListener {
     }
 
     override fun onItemClicked() {
-        findNavController().navigate(R.id.action_cart_dest_to_productDetailFragment);
+        findNavController().navigate(R.id.action_ordersFragment_to_orderDetailsFragment)
     }
-
 
 }

@@ -28,10 +28,11 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/border"
                     app:carouselOffset="center"
-                    app:enableSnapping="true"
+                    app:enableSnapping="false"
                     app:indicatorAnimationType="drop"
                     app:indicatorPadding="5"
                     app:indicatorRadius="5"
+
                     app:resource="@layout/image_carousel_item"
                     app:scaleOnScroll="false"
                     app:setAutoPlay="true"
@@ -118,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/colorPrimary"
-            android:text="ADD TO BAG"
+            android:text="@string/add_to_bag"
             android:textColor="@color/white" />
 
 

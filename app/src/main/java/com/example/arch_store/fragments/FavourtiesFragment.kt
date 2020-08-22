@@ -9,11 +9,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arch_store.R
-import com.example.arch_store.adapters.CartListAdapter
-import com.example.arch_store.adapters.CartListListener
-import com.example.arch_store.databinding.FragmentBagBinding
+import com.example.arch_store.adapters.FavListAdapter
+import com.example.arch_store.adapters.FavListListener
+import com.example.arch_store.databinding.FragmentEditProfileBinding
+import com.example.arch_store.databinding.FragmentFavourtiesBinding
 
-class BagFragment : Fragment(), CartListListener {
+class FavourtiesFragment : Fragment(), FavListListener {
 
 
     override fun onCreateView(
@@ -21,26 +22,25 @@ class BagFragment : Fragment(), CartListListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        val binding: FragmentFavourtiesBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_favourties, container, false)
 
-        var binding: FragmentBagBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_bag, container, false)
-
-        val cartList = binding.cartItems
-        var cartAdapter = CartListAdapter(
-            products = arrayListOf<String>("", "", "", "", "", ""),
+        var favListAdapter: FavListAdapter = FavListAdapter(
+            products = arrayListOf("", "", "", ""),
             ctx = activity!!.applicationContext,
-            cartListListener = this
+            favListListener = this
         )
-        cartList.apply {
-            adapter = cartAdapter
+        binding.favProducts.apply {
+            adapter = favListAdapter
             layoutManager = LinearLayoutManager(activity)
         }
-
         return binding.root
     }
 
     override fun onItemClicked() {
-        findNavController().navigate(R.id.action_cart_dest_to_productDetailFragment);
+
+
+        findNavController().navigate(R.id.action_favourtiesFragment_to_productDetailFragment)
     }
 
 

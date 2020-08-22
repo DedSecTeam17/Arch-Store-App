@@ -6,4 +6,7 @@
     <color name="white">#ffff</color>
     <color name="back_ground_clr">#F9F9F9</color>
     <color name="black">#222222</color>
+    <color name="green_acent">#00FFCC</color>
+    <color name="green_dark">#00CCCC</color>
+    <color name="red_acent">#FF6699</color>
 </resources>

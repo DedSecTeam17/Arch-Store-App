@@ -103,6 +103,19 @@ class MainActivity : AppCompatActivity() {
                     bottomNav.visibility = View.GONE
                     toolbar.visibility = View.VISIBLE
                 }
+                R.id.ordersFragment -> {
+                    bottomNav.visibility = View.GONE
+                    toolbar.visibility = View.VISIBLE
+                }
+                R.id.editProfileFragment -> {
+                    bottomNav.visibility = View.GONE
+                    toolbar.visibility = View.VISIBLE
+                }
+                R.id.favourtiesFragment -> {
+                    bottomNav.visibility = View.GONE
+                    toolbar.visibility = View.VISIBLE
+                }
+
 
 
             }

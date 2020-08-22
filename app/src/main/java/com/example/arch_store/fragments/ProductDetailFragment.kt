@@ -1,17 +1,20 @@
 package com.example.arch_store.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.example.arch_store.R
 import com.example.arch_store.databinding.FragmentProductDetailBinding
 import com.jama.carouselview.enums.IndicatorAnimationType
 import com.jama.carouselview.enums.OffsetType
-import java.util.*
 
 
 class ProductDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
@@ -32,7 +35,10 @@ class ProductDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
         carouselView.apply {
             size = images.size
             resource = R.layout.image_carousel_item
-            autoPlay = false
+            autoPlay = true
+
+
+
             indicatorAnimationType = IndicatorAnimationType.THIN_WORM
             carouselOffset = OffsetType.CENTER
             setCarouselViewListener { view, position ->
@@ -43,6 +49,8 @@ class ProductDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
             // After you finish setting up, show the CarouselView
             show()
         }
+
+//        carouselView.enableSnapping(false)
         var sizes = binding.sizes
         sizes.onItemSelectedListener = this
 

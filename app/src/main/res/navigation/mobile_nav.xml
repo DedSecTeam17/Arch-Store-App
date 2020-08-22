@@ -15,14 +15,14 @@
         <action
             android:id="@+id/action_splashFragment_to_home_dest"
             app:destination="@id/home_dest"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/mobile_navigation"
-            app:popUpToInclusive="true"
-
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true"
 
             />
         <action
@@ -44,7 +44,7 @@
         android:id="@+id/home_dest"
         android:name="com.example.arch_store.fragments.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_dest_to_productDetailFragment2"
             app:destination="@id/productDetailFragment"
@@ -61,7 +61,7 @@
         android:id="@+id/search_dest"
         android:name="com.example.arch_store.fragments.SearchFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_search_dest_to_productDetailFragment"
             app:destination="@id/productDetailFragment"
@@ -78,12 +78,42 @@
         android:id="@+id/cart_dest"
         android:name="com.example.arch_store.fragments.BagFragment"
         android:label="Bag"
-        tools:layout="@layout/fragment_bag" />
+        tools:layout="@layout/fragment_bag">
+        <action
+            android:id="@+id/action_cart_dest_to_productDetailFragment"
+            app:destination="@id/productDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/profile_dest"
         android:name="com.example.arch_store.fragments.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profile_dest_to_editProfileFragment"
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_profile_dest_to_ordersFragment"
+            app:destination="@id/ordersFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_profile_dest_to_favourtiesFragment"
+            app:destination="@id/favourtiesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.example.arch_store.fragments.SignInFragment"
@@ -102,14 +132,14 @@
         <action
             android:id="@+id/action_signInFragment_to_home_dest"
             app:destination="@id/home_dest"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/mobile_navigation"
-            app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
-
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"
+
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true"
 
             />
     </fragment>
@@ -132,14 +162,14 @@
         <action
             android:id="@+id/action_signUpFragment_to_home_dest"
             app:destination="@id/home_dest"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/mobile_navigation"
-            app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
-
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"
+
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true"
 
 
             />
@@ -149,5 +179,41 @@
         android:name="com.example.arch_store.fragments.ProductDetailFragment"
         android:label="Product Detail"
         tools:layout="@layout/fragment_product_detail" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.arch_store.fragments.EditProfileFragment"
+        android:label="Edit profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_splashFragment"
+            app:destination="@id/splashFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.example.arch_store.fragments.OrdersFragment"
+        android:label="Orders"
+        tools:layout="@layout/fragment_orders" >
+        <action
+            android:id="@+id/action_ordersFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favourtiesFragment"
+        android:name="com.example.arch_store.fragments.FavourtiesFragment"
+        android:label="Favourites"
+        tools:layout="@layout/fragment_favourties" >
+        <action
+            android:id="@+id/action_favourtiesFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.example.arch_store.fragments.OrderDetailsFragment"
+        android:label="Order Details"
+        tools:layout="@layout/fragment_order_details" >
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
 
 </navigation>
