@@ -113,6 +113,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_profile_dest_to_splashFragment"
+            app:destination="@id/splashFragment" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment"

@@ -32,9 +32,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:orientation="vertical">
+
+
 
                 <View
                     android:layout_width="wrap_content"
@@ -45,14 +47,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:textStyle="bold"
                     android:text="@string/login"
                     android:textColor="@color/black"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName"
+                    android:id="@+id/identifier"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
@@ -63,7 +65,7 @@
                     android:inputType="textPersonName" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName2"
+                    android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
@@ -99,6 +101,23 @@
                     android:textColor="@color/white" />
             </LinearLayout>
         </ScrollView>
+
+        <FrameLayout
+            android:id="@+id/loading"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primary_color_poacity">
+
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
 
     </FrameLayout>
 

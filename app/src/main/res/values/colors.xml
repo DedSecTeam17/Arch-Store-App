@@ -9,4 +9,5 @@
     <color name="green_acent">#00FFCC</color>
     <color name="green_dark">#00CCCC</color>
     <color name="red_acent">#FF6699</color>
+    <color name="primary_color_poacity">#1ADB3022</color>
 </resources>

@@ -9,11 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.arch_store.MainActivity
 import com.example.arch_store.R
+import com.example.arch_store.utils.UserSession
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class SplashFragment : Fragment() {
 
-
+    @Inject
+    lateinit var session: UserSession
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,7 +36,13 @@ class SplashFragment : Fragment() {
 
             override fun onFinish() {
 
-                findNavController().navigate(R.id.action_splashFragment_to_signInFragment)
+                if (!session.isAuth()) {
+                    findNavController().navigate(R.id.action_splashFragment_to_signInFragment)
+                } else {
+                    findNavController().navigate(R.id.action_splashFragment_to_home_dest)
+
+                }
+
 //                (activity as MainActivity?)?.toolbar?.visibility = View.VISIBLE
 //                (activity as MainActivity?)?.bottomNav?.visibility = View.VISIBLE
 

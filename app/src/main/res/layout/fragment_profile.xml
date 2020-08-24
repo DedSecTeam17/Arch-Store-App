@@ -27,6 +27,7 @@
                 />
 
             <TextView
+                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -127,6 +128,37 @@
                 android:layout_margin="15dp"
 
                 android:text="@string/favourites_products" />
+
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/back_ground_clr" />
+        <LinearLayout
+            android:id="@+id/log_out"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+
+                android:src="@drawable/ic_baseline_power_settings_new_24" />
+            <!--          -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+
+                android:text="Log out" />
 
 
         </LinearLayout>
