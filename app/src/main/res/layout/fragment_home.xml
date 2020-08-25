@@ -6,23 +6,42 @@
     tools:context=".fragments.HomeFragment">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/cats"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/cats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/products_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/cats">
+
+
+            </androidx.viewpager.widget.ViewPager>
+
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/loading"
+            style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
-            />
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/products_view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cats" />
-    </RelativeLayout>
+    </FrameLayout>
 
 
 </layout>

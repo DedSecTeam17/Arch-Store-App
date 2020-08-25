@@ -5,26 +5,30 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.arch_store.fragments.ProductFragment
+import com.example.arch_store.models.Category
+import com.example.arch_store.models.Product
 
 
 interface HomeListener {
-    fun onItemClicked()
+    fun onItemClicked(product: Product)
 }
 
 class ProductsAdapter(
     var context: Context,
     fm: FragmentManager,
-    var totalTabs: Int,
+    var cats: List<Category>,
     var homeListener: HomeListener
 ) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         return ProductFragment(
-            homeListener = homeListener
+            homeListener = homeListener,
+            categoryId = cats.get(position).id
+
         )
     }
 
     override fun getCount(): Int {
-        return totalTabs
+        return cats.size
     }
 
 

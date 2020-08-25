@@ -56,6 +56,10 @@
             app:popExitAnim="@anim/fade_out"
 
             />
+        <argument
+            android:name="product_id"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/search_dest"
@@ -181,7 +185,13 @@
         android:id="@+id/productDetailFragment"
         android:name="com.example.arch_store.fragments.ProductDetailFragment"
         android:label="Product Detail"
-        tools:layout="@layout/fragment_product_detail" />
+
+        tools:layout="@layout/fragment_product_detail" >
+        <argument
+            android:name="product_id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.arch_store.fragments.EditProfileFragment"
@@ -208,6 +218,7 @@
         <action
             android:id="@+id/action_favourtiesFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/orderDetailsFragment"

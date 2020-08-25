@@ -20,13 +20,27 @@
             android:hint="@string/product_name"
             android:inputType="textPersonName" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_result"
-
+        <FrameLayout
             android:layout_width="match_parent"
-
             android:layout_height="match_parent"
-            android:layout_below="@+id/search_filed" />
+            android:layout_below="@+id/search_filed">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_result"
+
+                android:layout_width="match_parent"
+
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <ProgressBar
+                android:id="@+id/loading"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </FrameLayout>
     </RelativeLayout>
 
 

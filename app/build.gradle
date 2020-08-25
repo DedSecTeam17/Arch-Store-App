@@ -96,6 +96,8 @@ dependencies {
 
 //    validation
     implementation 'com.afollestad:vvalidator:0.5.2'
+//for images
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
 
 
 
