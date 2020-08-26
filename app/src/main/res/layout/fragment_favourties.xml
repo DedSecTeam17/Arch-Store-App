@@ -4,9 +4,29 @@
     tools:context=".fragments.FavourtiesFragment">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fav_products"
+
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fav_products"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/empty_products"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:src="@drawable/no_product" />
+
+    </FrameLayout>
+
+
+
+
+
 
 </layout>

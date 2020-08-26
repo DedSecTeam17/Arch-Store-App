@@ -6,9 +6,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ImageView
+import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,9 +20,10 @@ import com.example.arch_store.R
 import com.example.arch_store.databinding.FragmentProductBinding
 import com.example.arch_store.databinding.FragmentProductDetailBinding
 import com.example.arch_store.models.Product
+import com.example.arch_store.offline_db.cart.CartProduct
+import com.example.arch_store.offline_db.favourtites.FavProduct
 import com.example.arch_store.utils.DataState
-import com.example.arch_store.view_models.ProductStateEvent
-import com.example.arch_store.view_models.ProductViewModel
+import com.example.arch_store.view_models.*
 import com.jama.carouselview.enums.IndicatorAnimationType
 import com.jama.carouselview.enums.OffsetType
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,11 +35,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ProductDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
-    private val images = arrayListOf(
-        R.drawable.p_1,
-        R.drawable.p_2, R.drawable.p_3
-    )
+    private lateinit var product: Product
+    private lateinit var sizes: Spinner
     private val viewModel: ProductViewModel by viewModels()
+    private val cartViewModel: CartViewModel by viewModels()
+    private val favViewModel: FavViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -58,7 +57,42 @@ class ProductDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         viewModel.setStateEvent(ProductStateEvent.GetProductById, productId = productId)
 
-        subscribeObservers(binding)
+        subscribeObserversToGetProductDetail(binding)
+        subscribeObserversToAddProductCart(binding)
+        subscribeObserversToAddProductToFav(binding)
+
+        binding.addToBag.setOnClickListener {
+//            add product to cart
+            cartViewModel.setStateEvent(
+                CartStateEvent.InsertCartProduct,
+                cartProduct = CartProduct(
+                    productId = product.id,
+                    title = product.title,
+                    price = product.price,
+                    discount = product.discount,
+                    previewImage = product.previewImage,
+                    quantity = 1,
+                    size = product.sizes[sizes.selectedItemPosition]
+                )
+            )
+        }
+
+        binding.addToFav.setOnClickListener {
+
+            favViewModel.setStateEvent(
+                FavStateEvent.InsertFavProduct,
+                favProduct = FavProduct(
+                    productId = product.id,
+                    title = product.title,
+                    price = product.price,
+                    discount = product.discount,
+                    previewImage = product.previewImage,
+                    quantity = 1,
+                    size = product.sizes[sizes.selectedItemPosition]
+                )
+            )
+//            add to fav
+        }
 
         return binding.root
     }
@@ -95,22 +129,23 @@ class ProductDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private fun setBasicInfo(binding: FragmentProductDetailBinding, product: Product) {
         binding.title.text = product.title
         binding.description.text = product.description
-        if(product.discount>0){
-            binding.price.text = product.price.toString()+"- SDG"
-            var  percentageToNum = product.price*product.discount;
+        if (product.discount > 0) {
+            binding.price.text = product.price.toString() + "- SDG"
+            var percentageToNum = product.price * product.discount;
 
 
-            binding.newPrice.text = (product.price-(percentageToNum/100)).toString()+"- SDG"
+            binding.newPrice.text = (product.price - (percentageToNum / 100)).toString() + "- SDG"
 
-        }else{
-            binding.newPrice.text = product.price.toString()+"- SDG"
+        } else {
+            binding.newPrice.text = product.price.toString() + "- SDG"
 //            show new price only
-            binding.discount.visibility =View.GONE
-            binding.newPrice.visibility =View.VISIBLE
+            binding.discount.visibility = View.GONE
+            binding.newPrice.visibility = View.VISIBLE
 
         }
 
-        var sizes = binding.sizes
+        sizes = binding.sizes
+        sizes.selectedItemPosition
         sizes.onItemSelectedListener = this
         var sizesList = product.sizes
         val adapter = ArrayAdapter(
@@ -124,13 +159,14 @@ class ProductDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
 
-    private fun subscribeObservers(binding: FragmentProductDetailBinding) {
+    private fun subscribeObserversToGetProductDetail(binding: FragmentProductDetailBinding) {
         viewModel.product.observe(requireActivity(), Observer { dataState ->
             when (dataState) {
                 is DataState.Success<Product> -> {
+                    product = dataState.data
                     binding.loading.visibility = View.GONE
                     binding.noProduct.visibility = View.GONE
-
+                    binding.addToBag.visibility = View.VISIBLE
                     println("we have data" + dataState.data.toString())
 
                     setCarousal(binding, dataState.data.images)
@@ -139,7 +175,7 @@ class ProductDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 is DataState.Error -> {
                     binding.loading.visibility = View.GONE
                     binding.detail.visibility = View.GONE
-
+                    binding.addToBag.visibility = View.GONE
                     binding.noProduct.visibility = View.VISIBLE
 
 
@@ -150,12 +186,64 @@ class ProductDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 is DataState.Loading -> {
                     binding.loading.visibility = View.VISIBLE
                     binding.noProduct.visibility = View.GONE
+                    binding.addToBag.visibility = View.GONE
                     println("Loading...")
                 }
             }
         })
     }
 
+    private fun subscribeObserversToAddProductCart(binding: FragmentProductDetailBinding) {
+        cartViewModel.productCreated.observe(requireActivity(), Observer { dataState ->
+            when (dataState) {
+                is DataState.Success<Long> -> {
+                    println("Ok product added to cart" + dataState.data.toString())
+                    Toast.makeText(requireContext(), "choose added to cart", Toast.LENGTH_SHORT)
+                        .show();
+                }
+                is DataState.Error -> {
+                    println("Error while add product to cart")
+                    Toast.makeText(
+                        requireContext(),
+                        "Error while add product to cart",
+                        Toast.LENGTH_LONG
+                    ).show();
+
+                }
+                is DataState.Loading -> {
+                    print("Loading..")
+                }
+            }
+        })
+    }
+
+    private fun subscribeObserversToAddProductToFav(binding: FragmentProductDetailBinding) {
+        favViewModel.productCreated.observe(requireActivity(), Observer { dataState ->
+            when (dataState) {
+                is DataState.Success<Long> -> {
+                    println("Ok product added to favourites" + dataState.data.toString())
+                    Toast.makeText(
+                        requireContext(),
+                        "choose added to favourites",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show();
+                }
+                is DataState.Error -> {
+                    println("Error while add product to cart")
+                    Toast.makeText(
+                        requireContext(),
+                        "Error while add product to cart",
+                        Toast.LENGTH_LONG
+                    ).show();
+
+                }
+                is DataState.Loading -> {
+                    print("Loading..")
+                }
+            }
+        })
+    }
 
     override fun onItemSelected(arg0: AdapterView<*>, arg1: View, position: Int, id: Long) {
         // use position to know the selected item

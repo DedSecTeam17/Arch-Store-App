@@ -67,7 +67,7 @@ class SearchFragment : Fragment(), SearchListListener {
             when (dataState) {
                 is DataState.Success<List<Product>> -> {
                     binding.loading.visibility = View.GONE
-                    setSearchList(binding , dataState.data)
+                    setSearchList(binding, dataState.data)
 
                 }
                 is DataState.Error -> {

@@ -12,37 +12,60 @@
     <ImageView
 
         android:id="@+id/product_preview"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_margin="10dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:src="@drawable/place_holder" />
+
+    <View
+        android:layout_width="10dp"
+        android:layout_height="0dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
 
-            android:id="@+id/textView3"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Nike Air Max Plus III"
+            android:orientation="horizontal">
 
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Nike Air Max Plus III"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:background="@drawable/rect_bg"
+                android:padding="4dp"
+                android:gravity="end"
+                android:text="1300 SDG "
+                android:textColor="@color/white"
+
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
+            android:id="@+id/size"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-
-            android:text="1300 SDG "
-
-            android:textSize="15sp" />
+            android:padding="5dp"
+            android:text="Size 10"
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -50,7 +73,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/decrease_qt"
+                android:id="@+id/increase_qt"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
@@ -58,6 +81,7 @@
                 android:src="@drawable/ic_baseline_add_24" />
 
             <TextView
+                android:id="@+id/quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -68,7 +92,9 @@
                 android:textStyle="bold" />
 
             <ImageButton
-                android:id="@+id/increase_qt"
+
+
+                android:id="@+id/decrease_qt"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"

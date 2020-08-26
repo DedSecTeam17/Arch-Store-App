@@ -1,8 +1,8 @@
 package com.example.arch_store.di
 
-import com.example.arch_store.repository.AuthRepository
-import com.example.arch_store.repository.CategoryRepository
-import com.example.arch_store.repository.ProductRepository
+import com.example.arch_store.offline_db.cart.CartDao
+import com.example.arch_store.offline_db.favourtites.FavDao
+import com.example.arch_store.repository.*
 import com.example.arch_store.service.ApiCalls
 import com.example.arch_store.service.mapping.AuthResponseToUser
 import com.example.arch_store.service.mapping.NetworkCatToCategory
@@ -43,6 +43,26 @@ object RepositoryModule {
         networkProductToProduct: NetworkProductToProduct
     ): ProductRepository {
         return ProductRepository(apiCalls, networkProductToProduct)
+    }
+
+
+    @Singleton
+    @Provides
+    fun cartRepository(
+
+        cartDao: CartDao
+    ): CartRepository {
+        return CartRepository(cartDao)
+    }
+
+
+    @Singleton
+    @Provides
+    fun favRepository(
+
+        favDao: FavDao
+    ): FavRepository {
+        return FavRepository(favDao)
     }
 
 
