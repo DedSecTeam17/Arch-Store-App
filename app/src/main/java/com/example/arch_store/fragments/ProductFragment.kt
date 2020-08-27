@@ -16,10 +16,12 @@ import com.example.arch_store.adapters.ProductListListener
 import com.example.arch_store.databinding.FragmentProductBinding
 import com.example.arch_store.models.Product
 import com.example.arch_store.utils.DataState
+import com.example.arch_store.utils.MoneyFormatter
 import com.example.arch_store.view_models.ProductStateEvent
 import com.example.arch_store.view_models.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -31,6 +33,8 @@ class ProductFragment(
 
 ), ProductListListener {
     private val viewModel: ProductViewModel by viewModels()
+
+    @Inject lateinit var moneyFormatter: MoneyFormatter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +59,8 @@ class ProductFragment(
         var productAdapter: ProductListAdapter = ProductListAdapter(
             ctx = requireActivity(),
             products = products,
-            productListListener = this
+            productListListener = this,
+            formatter = moneyFormatter
         )
         productList.apply {
             adapter = productAdapter

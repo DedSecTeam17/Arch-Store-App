@@ -31,6 +31,8 @@ constructor(
     private val _productUpdated: MutableLiveData<DataState<Int>> = MutableLiveData()
     private val _productDeleted: MutableLiveData<DataState<Int>> = MutableLiveData()
 
+    private val _productsDeleted: MutableLiveData<DataState<Int>> = MutableLiveData()
+
 
     val cartProducts: LiveData<DataState<List<CartProduct>>>
         get() = _cartProducts
@@ -38,6 +40,9 @@ constructor(
         get() = _productCreated
     val productDeleted: LiveData<DataState<Int>>
         get() = _productDeleted
+
+    val productsDeleted: LiveData<DataState<Int>>
+        get() = _productsDeleted
     val productUpdated: LiveData<DataState<Int>>
         get() = _productUpdated
 
@@ -93,6 +98,15 @@ constructor(
                         }
                         .launchIn(viewModelScope)
                 }
+
+                is CartStateEvent.DeleteAll -> {
+                    cartRepository.deleteAll(
+                    )
+                        .onEach { dataState ->
+                            _productsDeleted.value = dataState
+                        }
+                        .launchIn(viewModelScope)
+                }
             }
         }
     }
@@ -106,6 +120,7 @@ sealed class CartStateEvent() {
     object DeleteCartProduct : CartStateEvent()
     object UpdateCartProduct : CartStateEvent()
     object InsertCartProduct : CartStateEvent()
+    object DeleteAll : CartStateEvent()
 
 
 }

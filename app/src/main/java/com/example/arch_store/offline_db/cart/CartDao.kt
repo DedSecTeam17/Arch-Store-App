@@ -18,4 +18,8 @@ interface CartDao {
 
     @Query("SELECT * FROM product ORDER BY id ASC")
     suspend fun getAllProducts(): List<CartProduct>
+
+
+    @Query("DELETE  FROM product ")
+    suspend fun deleteAll(): Int
 }

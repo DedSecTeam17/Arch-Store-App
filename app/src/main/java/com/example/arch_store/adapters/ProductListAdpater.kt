@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.arch_store.R
 import com.example.arch_store.models.Product
+import com.example.arch_store.utils.MoneyFormatter
 
 class ProductListHolder(inflater: LayoutInflater, parent: ViewGroup) :
     RecyclerView.ViewHolder(inflater.inflate(R.layout.product_row, parent, false)) {
@@ -40,8 +41,8 @@ class ProductListHolder(inflater: LayoutInflater, parent: ViewGroup) :
     }
 
     //discountTxt
-    fun bind(product: Product) {
-        price?.text = product.price.toString() + "- SDG"
+    fun bind(product: Product, formatter: MoneyFormatter) {
+        price?.text = formatter.getReadableMoney(product.price)
         if (product.discount.toDouble() > 0.0) {
             discount!!.visibility = View.VISIBLE
             discount?.text = "${product.discount.toInt()}%"
@@ -71,7 +72,8 @@ interface ProductListListener {
 class ProductListAdapter(
     private var products: List<Product>,
     var ctx: Context,
-    var productListListener: ProductListListener
+    var productListListener: ProductListListener,
+    var formatter: MoneyFormatter
 
 ) :
     RecyclerView.Adapter<ProductListHolder>() {
@@ -84,7 +86,7 @@ class ProductListAdapter(
 
     override fun onBindViewHolder(holder: ProductListHolder, position: Int) {
         holder.bind(
-            products.get(position)
+            products.get(position), formatter = formatter
         )
 //
 //

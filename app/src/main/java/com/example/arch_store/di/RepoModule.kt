@@ -4,9 +4,7 @@ import com.example.arch_store.offline_db.cart.CartDao
 import com.example.arch_store.offline_db.favourtites.FavDao
 import com.example.arch_store.repository.*
 import com.example.arch_store.service.ApiCalls
-import com.example.arch_store.service.mapping.AuthResponseToUser
-import com.example.arch_store.service.mapping.NetworkCatToCategory
-import com.example.arch_store.service.mapping.NetworkProductToProduct
+import com.example.arch_store.service.mapping.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -63,6 +61,17 @@ object RepositoryModule {
         favDao: FavDao
     ): FavRepository {
         return FavRepository(favDao)
+    }
+
+
+    @Singleton
+    @Provides
+    fun orderRepository(
+        apiCalls: ApiCalls,
+        networkOrderToOrder: NetworkOrderToOrder,
+        networkOrderLineToOrderLine: NetworkOrderLineToOrderLine
+    ): OrderRepository {
+        return OrderRepository(apiCalls, networkOrderToOrder, networkOrderLineToOrderLine)
     }
 
 

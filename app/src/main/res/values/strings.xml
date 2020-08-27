@@ -21,4 +21,10 @@
     <string name="update_profile_info">Update profile info</string>
     <string name="products">Products</string>
     <string name="shippment_informations">Shippment Informations</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="create_order">CREATE ORDER</string>
+    <string name="address">Address</string>
+    <string name="order_created_successfully">Order created successfully</string>
 </resources>

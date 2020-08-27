@@ -93,12 +93,12 @@ data class Medium(
 
 data class Preview_image(
 
-    @SerializedName("id") val id: Int,
-    @SerializedName("name") val name: String,
-    @SerializedName("alternativeText") val alternativeText: String,
-    @SerializedName("caption") val caption: String,
-    @SerializedName("width") val width: Int,
-    @SerializedName("height") val height: Int,
+    @SerializedName("id") val id: Int=0,
+    @SerializedName("name") val name: String="",
+    @SerializedName("alternativeText") val alternativeText: String="",
+    @SerializedName("caption") val caption: String="",
+    @SerializedName("width") val width: Int=0,
+    @SerializedName("height") val height: Int=0,
     @SerializedName("formats") val formats: Formats,
     @SerializedName("hash") val hash: String,
     @SerializedName("ext") val ext: String,

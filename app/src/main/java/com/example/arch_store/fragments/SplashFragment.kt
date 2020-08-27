@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.arch_store.MainActivity
 import com.example.arch_store.R
 import com.example.arch_store.utils.UserSession
@@ -39,7 +40,14 @@ class SplashFragment : Fragment() {
                 if (!session.isAuth()) {
                     findNavController().navigate(R.id.action_splashFragment_to_signInFragment)
                 } else {
-                    findNavController().navigate(R.id.action_splashFragment_to_home_dest)
+                    val args: SplashFragmentArgs by navArgs()
+                    if (args.isToOrder) {
+                        findNavController().navigate(R.id.action_splashFragment_to_profile_dest)
+
+                    } else {
+                        findNavController().navigate(R.id.action_splashFragment_to_home_dest)
+
+                    }
 
                 }
 

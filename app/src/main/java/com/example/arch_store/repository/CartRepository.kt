@@ -34,6 +34,16 @@ constructor(
     }
 
 
+    suspend fun deleteAll(): Flow<DataState<Int>> = flow {
+        emit(DataState.Loading)
+        try {
+            val products = cartDao.deleteAll();
+            emit(DataState.Success(products))
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
     suspend fun insertProduct(cartProduct: CartProduct): Flow<DataState<Long>> = flow {
         emit(DataState.Loading)
         try {

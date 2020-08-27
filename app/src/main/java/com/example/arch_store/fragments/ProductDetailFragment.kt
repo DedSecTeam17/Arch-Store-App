@@ -23,12 +23,14 @@ import com.example.arch_store.models.Product
 import com.example.arch_store.offline_db.cart.CartProduct
 import com.example.arch_store.offline_db.favourtites.FavProduct
 import com.example.arch_store.utils.DataState
+import com.example.arch_store.utils.MoneyFormatter
 import com.example.arch_store.view_models.*
 import com.jama.carouselview.enums.IndicatorAnimationType
 import com.jama.carouselview.enums.OffsetType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_product_detail.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 
 
 @ExperimentalCoroutinesApi
@@ -41,6 +43,8 @@ class ProductDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val cartViewModel: CartViewModel by viewModels()
     private val favViewModel: FavViewModel by viewModels()
 
+    @Inject
+    lateinit var moneyFormatter: MoneyFormatter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,12 +67,27 @@ class ProductDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         binding.addToBag.setOnClickListener {
 //            add product to cart
-            cartViewModel.setStateEvent(
+            var newPrice: Float = 0f
+            if (product.discount > 0) {
+
+
+                var percentageToNum = product.price * product.discount;
+
+
+                newPrice =
+                    product.price - (percentageToNum / 100)
+
+            } else {
+
+                newPrice =
+                    product.price
+            }
+                cartViewModel.setStateEvent(
                 CartStateEvent.InsertCartProduct,
                 cartProduct = CartProduct(
                     productId = product.id,
                     title = product.title,
-                    price = product.price,
+                    price =newPrice,
                     discount = product.discount,
                     previewImage = product.previewImage,
                     quantity = 1,
@@ -79,12 +98,28 @@ class ProductDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         binding.addToFav.setOnClickListener {
 
+            var newPrice: Float = 0f
+            if (product.discount > 0) {
+
+
+                var percentageToNum = product.price * product.discount;
+
+
+                newPrice =
+                    product.price - (percentageToNum / 100)
+
+            } else {
+
+                newPrice =
+                    product.price
+
+            }
             favViewModel.setStateEvent(
                 FavStateEvent.InsertFavProduct,
                 favProduct = FavProduct(
                     productId = product.id,
                     title = product.title,
-                    price = product.price,
+                    price = newPrice,
                     discount = product.discount,
                     previewImage = product.previewImage,
                     quantity = 1,
@@ -130,14 +165,17 @@ class ProductDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.title.text = product.title
         binding.description.text = product.description
         if (product.discount > 0) {
-            binding.price.text = product.price.toString() + "- SDG"
+
+            binding.price.text = moneyFormatter.getReadableMoney(product.price)
+
             var percentageToNum = product.price * product.discount;
 
 
-            binding.newPrice.text = (product.price - (percentageToNum / 100)).toString() + "- SDG"
+            binding.newPrice.text =
+                moneyFormatter.getReadableMoney(product.price - (percentageToNum / 100))
 
         } else {
-            binding.newPrice.text = product.price.toString() + "- SDG"
+            binding.newPrice.text = moneyFormatter.getReadableMoney(product.price)
 //            show new price only
             binding.discount.visibility = View.GONE
             binding.newPrice.visibility = View.VISIBLE

@@ -2,11 +2,12 @@ package com.example.arch_store.adapters
 
 
 import android.content.Context
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.*
-import androidx.cardview.widget.CardView
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -14,9 +15,14 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.arch_store.R
 import com.example.arch_store.offline_db.cart.CartProduct
+import com.example.arch_store.utils.MoneyFormatter
+import java.text.NumberFormat
+import java.util.*
+
 
 class CartListHolder(inflater: LayoutInflater, parent: ViewGroup) :
     RecyclerView.ViewHolder(inflater.inflate(R.layout.cart_row, parent, false)) {
+
 
     private var title: TextView? = null
     private var price: TextView? = null
@@ -56,7 +62,10 @@ class CartListHolder(inflater: LayoutInflater, parent: ViewGroup) :
     }
 
     //
-    fun bind(cartProduct: CartProduct) {
+    fun bind(
+        cartProduct: CartProduct,
+        formatter: MoneyFormatter
+    ) {
 
         if (cartProduct.title.length > 20) {
           title?.text =  cartProduct.title.subSequence(0, 20).toString() + ".."
@@ -64,7 +73,14 @@ class CartListHolder(inflater: LayoutInflater, parent: ViewGroup) :
             title?.text =    cartProduct.title
         }
         quantity?.text = cartProduct.quantity.toString()
-        price?.text = cartProduct.price.toString() + "- SDG"
+
+        val format: NumberFormat = NumberFormat.getCurrencyInstance()
+        format.maximumFractionDigits = 0
+        format.currency = Currency.getInstance("EUR")
+
+        format.format(cartProduct.price * cartProduct.quantity)
+
+        price?.text =  formatter.getReadableMoney(cartProduct.price * cartProduct.quantity)
         size?.text = "Size " + cartProduct.size
 
         Glide.with(itemView.context)
@@ -88,7 +104,8 @@ interface CartListListener {
 class CartListAdapter(
     private var products: List<CartProduct>,
     var ctx: Context,
-    var cartListListener: CartListListener
+    var cartListListener: CartListListener,
+   var formatter: MoneyFormatter
 
 ) :
     RecyclerView.Adapter<CartListHolder>() {
@@ -102,7 +119,7 @@ class CartListAdapter(
     override fun onBindViewHolder(holder: CartListHolder, position: Int) {
 
         var cartProduct: CartProduct = products[position]
-        holder.bind(cartProduct = cartProduct)
+        holder.bind(cartProduct = cartProduct , formatter = formatter)
 
         holder.item?.setOnClickListener {
             println("clicked")

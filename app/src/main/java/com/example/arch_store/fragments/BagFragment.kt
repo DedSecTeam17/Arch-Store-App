@@ -17,19 +17,27 @@ import com.example.arch_store.adapters.CartListAdapter
 import com.example.arch_store.adapters.CartListListener
 import com.example.arch_store.databinding.FragmentBagBinding
 import com.example.arch_store.offline_db.cart.CartProduct
+import com.example.arch_store.utils.CartUtil
 import com.example.arch_store.utils.DataState
+import com.example.arch_store.utils.MoneyFormatter
 import com.example.arch_store.view_models.CartStateEvent
 import com.example.arch_store.view_models.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.cart_row.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class BagFragment : Fragment(), CartListListener {
+    @Inject
+    lateinit var cartUtil: CartUtil
     private val cartViewModel: CartViewModel by viewModels()
 
     lateinit var cartAdapter: CartListAdapter
+
+    @Inject
+    lateinit var moneyFormatter: MoneyFormatter
 
 
     override fun onCreateView(
@@ -47,6 +55,10 @@ class BagFragment : Fragment(), CartListListener {
 
         cartViewModel.setStateEvent(CartStateEvent.GetAllCartProducts)
 
+        binding.purchaseProducts.setOnClickListener {
+            findNavController().navigate(R.id.action_cart_dest_to_shippmentFragment)
+        }
+
 
         return binding.root
     }
@@ -60,12 +72,16 @@ class BagFragment : Fragment(), CartListListener {
         cartAdapter = CartListAdapter(
             products = products,
             ctx = requireActivity(),
+            formatter = moneyFormatter,
             cartListListener = this
         )
         cartList.apply {
             adapter = cartAdapter
             layoutManager = LinearLayoutManager(activity)
         }
+        binding.total.text = moneyFormatter.getReadableMoney(cartUtil.calculateTotal(products,true))
+        cartAdapter.notifyDataSetChanged()
+
     }
 
 

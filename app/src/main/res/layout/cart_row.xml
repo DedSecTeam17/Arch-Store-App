@@ -22,7 +22,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+
         android:orientation="vertical">
 
 
@@ -53,7 +54,7 @@
                 android:text="1300 SDG "
                 android:textColor="@color/white"
 
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
 
         </LinearLayout>
@@ -62,8 +63,8 @@
             android:id="@+id/size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:padding="5dp"
+            android:layout_marginLeft="5dp"
+
             android:text="Size 10"
             android:textSize="12sp" />
 

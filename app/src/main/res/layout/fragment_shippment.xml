@@ -1,14 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+
     tools:context=".fragments.ShippmentFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/back_ground_clr"
 
-</FrameLayout>
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+
+                    android:orientation="vertical">
+
+
+                    <EditText
+                        android:id="@+id/f_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/edit_text_bg"
+                        android:ems="10"
+
+                        android:hint="@string/first_name"
+                        android:inputType="text" />
+
+                    <EditText
+                        android:id="@+id/l_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/edit_text_bg"
+                        android:ems="10"
+
+                        android:hint="@string/last_name"
+                        android:inputType="text" />
+
+
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/edit_text_bg"
+                        android:ems="10"
+
+                        android:hint="@string/email_or_user_name"
+                        android:inputType="textEmailAddress" />
+
+                    <EditText
+                        android:id="@+id/phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/edit_text_bg"
+                        android:ems="10"
+
+                        android:hint="@string/phone_number"
+                        android:inputType="phone" />
+
+                    <EditText
+                        android:id="@+id/address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/edit_text_bg"
+                        android:ems="10"
+
+                        android:hint="@string/address"
+                        android:inputType="text" />
+
+
+                </LinearLayout>
+            </ScrollView>
+
+            <Button
+                android:id="@+id/create_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:text="@string/create_order"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primary_color_poacity"
+            android:visibility="gone">
+
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+
+    </FrameLayout>
+
+</layout>

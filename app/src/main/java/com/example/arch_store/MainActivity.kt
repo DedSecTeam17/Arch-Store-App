@@ -117,6 +117,14 @@ class MainActivity : AppCompatActivity() {
                     bottomNav.visibility = View.GONE
                     toolbar.visibility = View.VISIBLE
                 }
+                R.id.shippmentFragment -> {
+                    bottomNav.visibility = View.GONE
+                    toolbar.visibility = View.VISIBLE
+                }
+                R.id.orderSuccessFragment -> {
+                    bottomNav.visibility = View.GONE
+                    toolbar.visibility = View.GONE
+                }
 
 
 

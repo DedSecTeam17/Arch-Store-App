@@ -36,6 +36,13 @@
             app:popExitAnim="@anim/fade_out"
 
             />
+        <argument
+            android:name="is_to_order"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_splashFragment_to_profile_dest"
+            app:destination="@id/profile_dest" />
     </fragment>
 
 
@@ -90,6 +97,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_cart_dest_to_shippmentFragment"
+            app:destination="@id/shippmentFragment" />
     </fragment>
     <fragment
         android:id="@+id/profile_dest"
@@ -228,6 +238,29 @@
         <action
             android:id="@+id/action_orderDetailsFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
+        <argument
+            android:name="order_id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/shippmentFragment"
+        android:name="com.example.arch_store.fragments.ShippmentFragment"
+        android:label="Shipment"
+        tools:layout="@layout/fragment_shippment" >
+        <action
+            android:id="@+id/action_shippmentFragment_to_orderSuccessFragment"
+            app:destination="@id/orderSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderSuccessFragment"
+        android:name="com.example.arch_store.fragments.OrderSuccessFragment"
+        android:label="fragment_order_success"
+        tools:layout="@layout/fragment_order_success" >
+        <action
+            android:id="@+id/action_orderSuccessFragment_to_ordersFragment"
+
+            app:destination="@id/splashFragment" />
     </fragment>
 
 </navigation>
